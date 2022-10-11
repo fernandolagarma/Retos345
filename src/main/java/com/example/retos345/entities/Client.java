@@ -13,8 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
 @Table(name = "client")
 public class Client implements Serializable{
@@ -39,11 +37,11 @@ public class Client implements Serializable{
     //***** RELACIONES *****:
     // Un empleado puede tener muchas Reservation y Messages.
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("client")
+    // @JsonIgnoreProperties("client")
     private Set<Message> messages = new HashSet<>();
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("client")
+    // @JsonIgnoreProperties("client")
     private Set<Reservation> reservations = new HashSet<>();
 
     

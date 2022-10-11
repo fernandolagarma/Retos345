@@ -21,8 +21,8 @@ public class Score implements Serializable{
     @Column(name = "stars")
     private Integer stars; 
 
-    @OneToOne
-    @JsonIgnoreProperties("score")
+    @OneToOne(optional = false)
+    @JsonIgnoreProperties(value = {"score"})
     private Reservation reservation;
 
 

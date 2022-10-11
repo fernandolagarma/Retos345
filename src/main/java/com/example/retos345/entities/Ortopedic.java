@@ -1,7 +1,6 @@
 package com.example.retos345.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,7 +35,7 @@ public class Ortopedic implements Serializable{
     private String brand;
 
     @Column(name = "years")
-    private Date year;
+    private Integer year;
 
     @Column(name = "description")
     private String description;
@@ -55,9 +54,11 @@ public class Ortopedic implements Serializable{
     private Set<Message> messages = new HashSet<>();
 
     @OneToMany(mappedBy = "ortopedic", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties({"ortopedic", "messages"})
+    // @JsonIgnoreProperties({"ortopedic", "messages"})
     private Set<Reservation> reservations = new HashSet<>();
 
+
+    
     //***** METODOS *****
     public Integer getId() {
         return id;
@@ -65,6 +66,14 @@ public class Ortopedic implements Serializable{
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getBrand() {
@@ -75,20 +84,12 @@ public class Ortopedic implements Serializable{
         this.brand = brand;
     }
 
-    public Date getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(Date year) {
+    public void setYear(Integer year) {
         this.year = year;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDescription() {
@@ -107,14 +108,6 @@ public class Ortopedic implements Serializable{
         this.category = category;
     }
 
-    public Set<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(Set<Reservation> reservations) {
-        this.reservations = reservations;
-    }
-
     public Set<Message> getMessages() {
         return messages;
     }
@@ -123,11 +116,12 @@ public class Ortopedic implements Serializable{
         this.messages = messages;
     }
 
-    
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
 
-
-
-
-
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
+    }
     
 }
