@@ -1,6 +1,7 @@
 package com.example.retos345.services;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,10 +33,10 @@ public class OrtopedicService {
         }
 
         public Ortopedic crearOrtopedic(Ortopedic ortopedic){
+            //System.out.println("service OK *************");
             return this.ortopedicRepository.save(ortopedic);
         }
 
-        
         public void eliminarOrtopedic(int id){
             if(!this.ortopedicRepository.findById(id).isEmpty()){
                 this.ortopedicRepository.deleteById(id);
@@ -57,8 +58,8 @@ public class OrtopedicService {
                 if(ortopedic.getYear() != null){
                     ortopedicDB.setYear(ortopedic.getYear());
                 }
+
                 this.ortopedicRepository.save(ortopedicDB);
             }
         }
-    }
-
+}

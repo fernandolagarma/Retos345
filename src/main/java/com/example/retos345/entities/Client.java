@@ -37,11 +37,9 @@ public class Client implements Serializable{
     //***** RELACIONES *****:
     // Un empleado puede tener muchas Reservation y Messages.
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    // @JsonIgnoreProperties("client")
     private Set<Message> messages = new HashSet<>();
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    // @JsonIgnoreProperties("client")
     private Set<Reservation> reservations = new HashSet<>();
 
     

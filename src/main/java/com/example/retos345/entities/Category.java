@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -30,14 +29,9 @@ public class Category implements Serializable{
     @Column(name = "description")
     private String description;
 
-   
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("category")
     private Set<Ortopedic> ortopedics = new HashSet<>();
-
-    // @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    // @JsonIgnoreProperties("category")
-    // private Set<Ortopedic> ortopedic = new HashSet<>();
     
     //***** METODOS *****
     public Integer getId() {

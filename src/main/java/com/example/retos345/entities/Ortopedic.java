@@ -30,7 +30,6 @@ public class Ortopedic implements Serializable{
     @Column(name = "name")
     private String name;
 
-
     @Column(name = "brand")
     private String brand;
 
@@ -41,24 +40,20 @@ public class Ortopedic implements Serializable{
     private String description;
 
     //***** RELACIONES *****
-    //Relación uno a uno. Una Ortopedic tiene un Category relacionada.
-    
+    //Relación uno a uno. Una Farm tiene un Category relacionada.
     @ManyToOne(optional = false)
     @JsonIgnoreProperties(value = {"ortopedics"})
 	@JoinColumn(name = "category_id")
 	private Category category;
 
-    // // Un Ortopedic puede tener muchas Reservation y Messages.
     @OneToMany(mappedBy = "ortopedic", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties({"ortopedic" , "client"})
+    @JsonIgnoreProperties(value = {"client", "ortopedic"})
     private Set<Message> messages = new HashSet<>();
 
     @OneToMany(mappedBy = "ortopedic", cascade = CascadeType.ALL)
-    // @JsonIgnoreProperties({"ortopedic", "messages"})
     private Set<Reservation> reservations = new HashSet<>();
 
 
-    
     //***** METODOS *****
     public Integer getId() {
         return id;
@@ -66,14 +61,6 @@ public class Ortopedic implements Serializable{
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getBrand() {
@@ -84,12 +71,13 @@ public class Ortopedic implements Serializable{
         this.brand = brand;
     }
 
-    public Integer getYear() {
-        return year;
+
+    public String getName() {
+        return name;
     }
 
-    public void setYear(Integer year) {
-        this.year = year;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -108,6 +96,14 @@ public class Ortopedic implements Serializable{
         this.category = category;
     }
 
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
     public Set<Message> getMessages() {
         return messages;
     }
@@ -116,12 +112,13 @@ public class Ortopedic implements Serializable{
         this.messages = messages;
     }
 
-    public Set<Reservation> getReservations() {
-        return reservations;
+    public Integer getYear() {
+        return year;
     }
 
-    public void setReservations(Set<Reservation> reservations) {
-        this.reservations = reservations;
+    public void setYear(Integer year) {
+        this.year = year;
     }
+
     
 }
