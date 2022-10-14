@@ -1,5 +1,6 @@
 package com.example.retos345.entities;
 
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,6 +39,7 @@ public class Ortopedic implements Serializable{
 
     @Column(name = "description")
     private String description;
+
 
     //***** RELACIONES *****
     //Relación uno a uno. Una Farm tiene un Category relacionada.
