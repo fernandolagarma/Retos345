@@ -1,8 +1,8 @@
 package com.example.retos345.services;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.retos345.entities.Client;
+import com.example.retos345.entities.ReportClient;
 import com.example.retos345.entities.Reservation;
 import com.example.retos345.repositories.ClientRepository;
 import com.example.retos345.repositories.ReservationRepository;
@@ -30,39 +31,44 @@ public class ReservationService {
             this.reservationRepository = reservationRepository;
         }
 
-        // ****** INICIO REPORTES ******
-        public List<Reservation> getReservationsBetweenTime(String start, String end){
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-dd", Locale.ENGLISH);
-            formatter.setTimeZone(TimeZone.getTimeZone("America/New_York"));
-            List<Reservation> result = null;
-            try {
-                Date startDate = formatter.parse(start);
-                Date endDate = formatter.parse(end);
-                result = this.reservationRepository.findByStartDateBetween(startDate, endDate);
-            } catch (ParseException e) {
-                e.printStackTrace();
+        // METODOS CRUD
+        // *******  INICIO REPORTES *********
+        public List<ReportClient> getReservationsReportClients(){
+            List<ReportClient> listReportClients = new ArrayList();
+            List<Client> listClients = this.clientRepository.findAll();
+            for(int i=0; i<listClients.size(); i++){
+                ReportClient reportClient = new ReportClient(listClients.get(i));
+                listReportClients.add(reportClient);
             }
-
-            return result;
+            return listReportClients;
         }
 
-        public String getReservationsStatus(){
+        public String getReservationsReportStatus(){
+            String result = "";
             List<Reservation> completed = this.reservationRepository.findByStatus("completed");
             List<Reservation> cancelled = this.reservationRepository.findByStatus("cancelled");
-            String result = "{"+"\"completed\":"+completed.size()+","
-                            + "\"cancelled\":"+cancelled.size()
-                            + "}";
+            result = "{" + "\"completed\":"+completed.size()+","
+                +"\"cancelled\":"+cancelled.size()+"}";
             return result;
         }
 
-        public List<Client> getReservationsClients(){
-            return this.clientRepository.findAll();
+        public List<Reservation> getReservationsReportDates(String start, String end){
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-dd", Locale.ENGLISH);
+            formatter.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+
+            Date startDate = new Date();
+            Date endDate = new Date(); 
+            try {
+                startDate = formatter.parse(start);
+                endDate = formatter.parse(end);
+            } catch (ParseException e) {
+                e.printStackTrace(); 
+            }
+            return this.reservationRepository.findByStartDateBetween(startDate, endDate);
         }
+        // *******  FIN REPORTES *********
 
 
-        // ****** FIN REPORTES ******
-
-        // METODOS CRUD
         public List<Reservation> getListReservations(){
             return this.reservationRepository.findAll();
         }
